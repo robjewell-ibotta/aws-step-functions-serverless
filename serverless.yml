@@ -21,15 +21,15 @@ stepFunctions:
     storeCheckoutFlow:
       name: storeCheckoutFlow
       definition: 
-      StartAt: checkInventory
-      States:
-        checkInventory:
-          Type: Task
-          Resource:
-            Fn::GetAtt: [checkInventory, Arn]
-          Next: calculateTotal
-        calculateTotal:
-          Type: Task
-          Resource:
-            Fn::GetAtt: [calculateTotal, Arn]
-          End: true
+        StartAt: checkInventory
+        States:
+          checkInventory:
+            Type: Task
+            Resource:
+              Fn::GetAtt: [checkInventory, Arn]
+            Next: calculateTotal
+          calculateTotal:
+            Type: Task
+            Resource:
+              Fn::GetAtt: [calculateTotal, Arn]
+            End: true
