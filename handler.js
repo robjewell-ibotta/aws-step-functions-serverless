@@ -7,7 +7,7 @@ const DocumentClient = new DynamoDB.DocumentClient({
 
 const isBookAvailable = (book, quantity) => {
   return (book.quantity - quantity) > 0
-}
+};
 
 module.exports.checkInventory = async (bookId, quantity) => {
   try {
@@ -17,9 +17,9 @@ module.exports.checkInventory = async (bookId, quantity) => {
       ExpressionAttributeValues: {
         ':bookId': bookId
       }
-    }
+    };
 
-    let result = await DocumentClient.query(params).promise();
+    let result = await DocumentClient.query(params);
     let book = result.Items[0];
 
     if (isBookAvailable(book, quantity)) {

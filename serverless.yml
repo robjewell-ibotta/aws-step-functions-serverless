@@ -5,6 +5,13 @@ provider:
   name: aws
   runtime: nodejs12.x
   region: us-east-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action: dynamodb:*
+      Resource: arn:aws:dynamodb:us-east-2:337882272655:table/bookTable
+    - Effect: Allow
+      Action: dynamodb:*
+      Resource: arn:aws:dynamodb:us-east-2:337882272655:table/userTable
 
 plugins:
   - serverless-step-functions
