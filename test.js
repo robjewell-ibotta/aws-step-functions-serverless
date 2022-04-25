@@ -1,24 +1,22 @@
-import { DynamoDBClient, GetItemCommand } from "@aws-sdk/client-dynamodb";
+'use strict';
+const AWS = require("aws-sdk");
+const DynamoDB = new AWS.DynamoDB.DocumentClient({
+  region: 'us-east-2'
+});
 
-const REGION = "us-east-2"; //e.g. "us-east-1"
-const ddbClient = new DynamoDBClient({ region: REGION });
 const isBookAvailable = (book, quantity) => {
   return (book.quantity - quantity) > 0
 }
 
-export const checkInventory = async (event, context) => {
-   try {
+module.exports.checkInventory = async (bookId, quantity) => {
+  try {
     console.log('start query')
-    const quantity = 1;
-
-    const params = {
-      TableName: "bookTable",
-      Key: {
-        "bookId": { S: "100" },
-      },
-    };
-
-    const result = await ddbClient.send(new GetItemCommand(params));
+    const result = await DynamoDB
+      .get({
+        TableName: "bookTable",
+        Key: { bookId: '100' },
+      })
+      .promise();
 
     console.log('end query')
 
@@ -46,6 +44,7 @@ export const checkInventory = async (event, context) => {
   }
 };
 
-export const calculateTotal = async (event, context) => {
+module.exports.calculateTotal = async (event) => {
   return 100;
-}
+};
+
